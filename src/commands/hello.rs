@@ -19,9 +19,9 @@ pub fn configure() -> Command {
 pub fn handle(matches: &ArgMatches) -> Result<(), CommandError> {
     if let Some(matches) = matches.subcommand_matches(COMMAND) {
         let word = matches
-            .get_one::<String>("word")
+            .get_one::<String>(WORD_ARG.get_id().as_str())
             .map(|s| s.as_str())
-            .unwrap_or("");
+            .ok_or(CommandError::ArgumentParseError)?;
 
         println!("Hello {}!", word);
     }
