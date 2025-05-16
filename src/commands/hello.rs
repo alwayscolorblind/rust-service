@@ -1,25 +1,22 @@
 use clap::{Arg, ArgMatches, Command};
-use lazy_static::lazy_static;
 
 use super::CommandError;
 
 const COMMAND: &str = "hello";
 const DESCRIPTION: &str = "Just template command";
 
-lazy_static! {
-    static ref WORD_ARG: Arg = Arg::new("word").short('w').default_value("world");
-}
+const WORD_ARG: &str = "word";
 
 pub fn configure() -> Command {
-    Command::new(COMMAND)
-        .about(DESCRIPTION)
-        .arg(WORD_ARG.clone())
+    let word_arg = Arg::new(WORD_ARG).short('w').default_value("world");
+
+    Command::new(COMMAND).about(DESCRIPTION).arg(word_arg)
 }
 
 pub fn handle(matches: &ArgMatches) -> Result<(), CommandError> {
     if let Some(matches) = matches.subcommand_matches(COMMAND) {
         let word = matches
-            .get_one::<String>(WORD_ARG.get_id().as_str())
+            .get_one::<String>("word")
             .map(|s| s.as_str())
             .ok_or(CommandError::ArgumentParseError)?;
 
