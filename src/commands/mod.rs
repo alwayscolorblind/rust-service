@@ -8,6 +8,8 @@ mod serve;
 pub enum CommandError {
     #[error("Failed to parse argument")]
     ArgumentParseError,
+    #[error("Failed to serve")]
+    ServeError(#[from] serve::Error),
 }
 
 pub fn configure(command: Command) -> Command {
