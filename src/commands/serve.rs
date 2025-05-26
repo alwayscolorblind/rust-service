@@ -1,10 +1,10 @@
+use clap::{Arg, ArgMatches, Command};
 use std::{
     net::{Ipv4Addr, SocketAddrV4},
     str::FromStr,
 };
 
 use axum::Router;
-use clap::{Arg, ArgMatches, Command};
 use thiserror::Error;
 
 use super::{CommandError, CommandResult};

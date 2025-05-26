@@ -28,9 +28,10 @@ fn main() -> Result<(), CommandError> {
 
     let matches = command.get_matches();
 
-    if let Err(e) = commands::handle(&matches) {
-        eprintln!("{e}");
-        eprintln!("{:#?}", e);
+    let res = commands::handle(&matches);
+
+    if let Err(e) = res {
+        eprintln!("[Error]: {e:?}: {e}")
     }
 
     Ok(())
