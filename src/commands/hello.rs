@@ -18,7 +18,10 @@ pub fn handle(matches: &ArgMatches) -> Result<(), CommandError> {
         let word = matches
             .get_one::<String>("word")
             .map(|s| s.as_str())
-            .ok_or(CommandError::ArgumentParseError)?;
+            .ok_or(CommandError::ArgumentParseError {
+                arg: "word".to_string(),
+                command: COMMAND.to_string(),
+            })?;
 
         println!("Hello {}!", word);
     }
